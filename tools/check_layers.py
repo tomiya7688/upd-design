@@ -9,7 +9,9 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-UNSUPPORTED = {".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs", ".cs", ".java", ".go", ".rs", ".kt", ".swift", ".rb", ".php", ".dart", ".cpp", ".cc", ".c", ".h", ".hpp"}
+from language_dependencies import LANGUAGE_SUFFIXES, check_other
+
+UNSUPPORTED = {".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs", ".java", ".swift", ".rb", ".php", ".dart", ".c", ".nako", ".nako2"}
 ALLOWED = {
     "ui": {"ui", "process", "shared"},
     "process": {"process", "data", "shared"},
@@ -115,7 +117,7 @@ def imported_modules(tree, package):
 
 def check(root, config):
     roots, mapping = resolve_config(root, config)
-    findings, sources, namespaces = [], [], []
+    findings, sources, namespaces, other_sources = [], [], [], []
     for src in roots:
         for layer, paths in mapping.items():
             for path in paths:
@@ -131,14 +133,20 @@ def check(root, config):
             label = path.relative_to(root).as_posix()
             if path.suffix in UNSUPPORTED:
                 findings.append(Finding(label, 1, "UPD003", f"未対応言語: {path.suffix}"))
+            elif path.suffix.lower() in LANGUAGE_SUFFIXES:
+                layer = layer_of(path.resolve(), mapping)
+                if layer is None:
+                    findings.append(Finding(label, 1, "UPD002", "未分類のソース"))
+                else:
+                    other_sources.append((path, src, layer))
             elif path.suffix == ".py":
                 layer = layer_of(path.resolve(), mapping)
                 if layer is None:
                     findings.append(Finding(label, 1, "UPD002", "未分類のPythonソース"))
                 else:
                     sources.append((path, src, layer))
-    if not sources:
-        findings.append(Finding("<source_roots>", 1, "UPD005", "検査可能なPythonソースがありません"))
+    if not sources and not other_sources:
+        findings.append(Finding("<source_roots>", 1, "UPD005", "検査可能なソースがありません"))
 
     modules = {}
     for path, src, layer in sources:
@@ -170,11 +178,12 @@ def check(root, config):
                     target = max(matches)[1]
             if target and target not in ALLOWED[layer]:
                 findings.append(Finding(label, line, "UPD100", f"禁止された層間依存: {layer} → {target} ({imported})"))
+    findings.extend(Finding(*record) for record in check_other(root, other_sources, mapping, ALLOWED))
     return sorted(set(findings))
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="UPD Python層間importチェッカー")
+    parser = argparse.ArgumentParser(description="UPD 層間参照チェッカー（対応構文のみ）")
     parser.add_argument("--root", type=Path, default=Path("."))
     parser.add_argument("--config", type=Path, required=True)
     args = parser.parse_args(argv)
@@ -191,7 +200,7 @@ def main(argv=None):
     if findings:
         print(f"UPD: {len(findings)} 件の違反・未検査項目", file=sys.stderr)
         return 1
-    print("UPD: Python静的importの対応範囲で違反なし（責務の意味は未検証）")
+    print("UPD: 対応する静的参照の範囲で違反なし（責務の意味・未対応構文は未検証）")
     return 0
 
 
