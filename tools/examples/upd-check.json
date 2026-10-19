@@ -1,0 +1,19 @@
+{
+  "source_roots": [
+    "src"
+  ],
+  "layers": {
+    "ui": [
+      "src/ui"
+    ],
+    "process": [
+      "src/process"
+    ],
+    "data": [
+      "src/data"
+    ],
+    "shared": [
+      "src/shared"
+    ]
+  }
+}
