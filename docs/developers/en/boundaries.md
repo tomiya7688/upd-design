@@ -69,6 +69,31 @@ Only the values and results required for work should cross layers.
 
 **Correct separation:** UI passes the search string; Data returns product values or a save result.
 
+## Rule 7: Data normalizes representation; Process determines meaning
+
+**Data may normalize retrieved data into a consistent representation that Process can use.** This is part of retrieval and data I/O.
+
+**Examples that belong in Data:**
+
+- Convert JSON or CSV into defined types.
+- Map source-specific field names to common field names.
+- Standardize number and date representations according to a defined schema.
+- Normalize character encodings or text representations without changing their meaning.
+- Detect parsing errors or missing values and return those facts to Process.
+
+**Examples that belong in Process:**
+
+- Apply membership-based discounts to a price.
+- Supply a default for a missing value according to an application rule.
+- Decide purchase eligibility or the winner of a game.
+- Filter or prioritize results according to application rules.
+
+**The boundary is whether an operation standardizes representation or determines application meaning.** Data must not silently reinterpret values, replace missing or invalid values based on business policy, or discard information in ways that alter its meaning.
+
+For example, when an external service returns `price` as the string `"1200"`, converting it to a defined numeric type belongs to Data. Calculating a membership discount from that number belongs to Process.
+
+Converting values to a storage format when saving also belongs to Data, while **deciding what may be saved belongs to Process**.
+
 ## Success and failure must obey the same boundaries
 
 Data must not display a dialog only because storage failed. UI must not decide to retry business persistence directly. Data reports the failure; Process decides the application response; UI presents it.

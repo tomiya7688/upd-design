@@ -12,7 +12,7 @@ This guide is for people implementing and reviewing code using UPD.
 | --- | --- | --- |
 | UI | Reading input, presentation formatting, rendering, view state | Final application rule decisions, retrieving or saving data |
 | Process | Business and game rules, calculations, workflow decisions | Rendering and screen controls, direct database or file I/O |
-| Data | Reading and writing data, storage-format conversion, detection of I/O errors | UI operations, business and game rule decisions |
+| Data | Reading and writing data, normalizing retrieved data representation, storage-format conversion, detection of I/O errors | UI operations, business and game rule decisions |
 
 The [mandatory boundaries](boundaries.md) are requirements, not suggestions.
 

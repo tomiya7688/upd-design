@@ -20,7 +20,8 @@ Use this checklist during implementation and review to verify that responsibilit
 
 ## Data
 
-- [ ] Data handles retrieval, persistence, required storage conversions, and I/O error detection.
+- [ ] Data handles retrieval, persistence, normalization of retrieved data representations, storage conversions, and I/O error detection.
+- [ ] Data normalization preserves meaning; business defaults and policy decisions remain in Process.
 - [ ] Data does not make business or game rule decisions.
 - [ ] Data does not display UI or send results directly to UI.
 

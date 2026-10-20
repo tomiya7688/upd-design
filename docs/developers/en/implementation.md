@@ -18,9 +18,23 @@ A name such as "conversion" is insufficient to determine a layer.
 | Format an amount as a user-facing currency string | UI | Presentation |
 | Calculate a discount based on membership level | Process | Application rule |
 | Convert a date into a storage format | Data | Persistence |
+| Convert a numeric string in retrieved JSON into a defined numeric type | Data | Normalize retrieved data representation |
+| Fill a missing price using an application-defined rule | Process | Assign application meaning to a value |
 | Show a loading indicator | UI | View state |
 | Decide whether to save data | Process | Application decision |
 | Detect a storage failure | Data | I/O result |
+
+## Normalizing retrieved data
+
+**Normalization that reconciles source-specific data formats belongs in Data.** Examples include mapping different CSV column names or JSON field names to a common schema and converting strings to numeric or date types according to defined rules. Data returns normalized values so Process need not understand the details of each data source.
+
+However, **a decision that changes application meaning belongs in Process.** Treating an empty membership tier as "standard," applying a discount, or ranking items according to business policy remains Process work even if someone calls it normalization.
+
+If a value is missing or cannot be parsed, Data reports the fact and Process decides how the application handles it. Data must not guess an interpretation when its meaning is ambiguous.
+
+When saving, Data converts values into the storage format; Process decides what should be saved.
+
+This boundary is mandatory under [Rule 7](boundaries.md).
 
 ## Product search
 
@@ -28,7 +42,7 @@ A name such as "conversion" is insufficient to determine a layer.
       ↓
     Process: Validate search conditions
       ↓
-    Data: Retrieve products
+    Data: Retrieve and, where needed, normalize product data
       ↓
     Process: Prepare the application result
       ↓
