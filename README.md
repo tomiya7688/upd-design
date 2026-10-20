@@ -1,5 +1,7 @@
 # UPD Design
 
+[English](en/README.md)
+
 **UPD は、アプリケーションの仕事を UI・Process・Data の3つに分ける設計の考え方です。**
 
 大切なのは、フォルダやクラスの名前ではなく、**それぞれが担当する仕事を混ぜないこと**です。
@@ -24,16 +26,16 @@ UPD の3つの層は、それぞれの仕事を越えてはいけません。特
 ### [利用者向け](docs/users/README.md)
 
 - [UPD の考え方](docs/users/README.md) — 何を分離するのか
-- [UPD を使うメリット](docs/users/benefits.md) — 何が改善し、どこに注意するか
-- [具体例で理解する UPD](docs/users/examples.md) — 検索、保存、ゲームの例
+- [UPD を使うメリット](docs/users/メリット.md) — 何が改善し、どこに注意するか
+- [具体例で理解する UPD](docs/users/具体例.md) — 検索、保存、ゲームの例
 
 ### [開発者向け](docs/developers/README.md)
 
 - [開発者ガイド](docs/developers/README.md) — 実装時の基本方針
-- [必ず守る境界](docs/developers/boundaries.md) — 禁止事項と違反例
-- [処理の分け方と受け渡し](docs/developers/implementation.md) — 判断の目安と処理の流れ
-- [レビューのチェックリスト](docs/developers/review-checklist.md) — 境界を確認する項目
-- [境界チェックツールの利用](docs/developers/checker.md) — 検査の導入と限界
+- [必ず守る境界](docs/developers/境界.md) — 禁止事項と違反例
+- [処理の分け方と受け渡し](docs/developers/実装.md) — 判断の目安と処理の流れ
+- [レビューのチェックリスト](docs/developers/レビュー.md) — 境界を確認する項目
+- [境界チェックツールの利用](docs/developers/検査ツール.md) — 検査の導入と限界
 
 ## ツール
 
@@ -44,3 +46,7 @@ Python に加え、**C#・Rust・Go・Kotlin・C++・なでしこ3** の代表�
 ## ライセンス
 
 [MIT License](LICENSE)
+
+## 文書の言語
+
+`README.md` は日本語が標準です。各文書の日本語版には日本語のファイル名、英語版には英語のファイル名を使用します。各ページの先頭から言語を切り替えられます。
