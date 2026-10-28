@@ -4,13 +4,13 @@
 
 This guide is for people implementing and reviewing code using UPD.
 
-**UPD separates the responsibilities of UI, Process, and Data, and these boundaries must be maintained.** Judge responsibilities by what the code actually does, not by a directory or class name.
+**UPD separates the responsibilities of UI, Process, and Data, and these boundaries must be maintained.** UI serves as the external interface, whether the other party is a person, a device, or another system. Judge responsibilities by what the code actually does, not by a directory or class name.
 
 ## Responsibilities of each layer
 
 | Layer | Responsible for | Must not own |
 | --- | --- | --- |
-| UI | Reading input, presentation formatting, rendering, view state | Final application rule decisions, retrieving or saving data |
+| UI | Accepting external requests and returning results; rendering and view state when a screen exists | Final application rule decisions, retrieving or saving data |
 | Process | Business and game rules, calculations, workflow decisions | Rendering and screen controls, direct database or file I/O |
 | Data | Reading and writing data, normalizing retrieved data representation, storage-format conversion, detection of I/O errors | UI operations, business and game rule decisions |
 

@@ -6,6 +6,8 @@ UPD is a design approach that divides application responsibilities into **UI, Pr
 
 UPD is not an application or library. It is a way to decide **which part of an application is responsible for which kind of work**.
 
+**UPD is intended for projects with an external interface.** That interface can serve people, devices, or other systems.
+
 ## Why separate the work?
 
 When screen updates, application decisions, and database operations are mixed into a single function, even a small change can require reviewing unrelated behavior.
@@ -14,7 +16,7 @@ UPD separates work that changes for different reasons.
 
 | Type of work | Layer | Examples |
 | --- | --- | --- |
-| Interacting with users | **UI** | Receive a button click and display a result |
+| Interacting with the outside world | **UI** | Accept a button press or a request from another system and return a result |
 | Application rules and calculations | **Process** | Check purchase eligibility and calculate discounts |
 | Reading and writing data | **Data** | Search for products and save an order |
 
@@ -43,7 +45,7 @@ See [Benefits of UPD](benefits.md).
 
 ## Which projects are a good fit?
 
-UPD can be used at different scales. **The more important question is whether UI, Process, and Data change for different reasons.** Medium-sized business applications are a clear example of where separation can help. See [Projects that benefit from UPD](suitable-projects.md).
+**UPD is not suited to closed autonomous projects without external interaction.** When an external interface exists, judge its suitability by the responsibilities that need separating, not project size alone. See [Projects that benefit from UPD](suitable-projects.md).
 
 ## Read next
 
