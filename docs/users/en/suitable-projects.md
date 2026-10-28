@@ -10,7 +10,7 @@ UPD separates application responsibilities into **UI (input and presentation), P
 
 | Size | Suitability | Example and rationale |
 | --- | --- | --- |
-| **Small** | **Useful in some cases** | A personal finance tracker or record-keeping app can benefit when presentation, calculation rules, and persistence need separate changes and tests. For a display-only utility, the cost of separation may outweigh the benefit. |
+| **Small** | **Useful in some cases** | In a personal expense tracker, UI handles entering and displaying expenses, Process calculates totals, and Data saves records. UPD can help even in a small app when these responsibilities are present. An app that only displays text or images, however, has little to gain from applying UPD. |
 | **Medium** | **Often a particularly good fit** | Inventory, reservation, and order-management systems tend to have several screens, business rules, and data operations. Separating those responsibilities makes their interactions easier to reason about. |
 | **Large** | **Useful, but insufficient on its own** | An e-commerce platform or organization-wide business system can apply UPD within features. It will still need additional decisions about feature boundaries, permissions, concurrency, deployment, and operations. |
 
