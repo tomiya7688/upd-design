@@ -46,4 +46,6 @@ Separation requires designing the values passed between layers and deciding how 
 
 UPD is not a promise of speed or quality by itself. It is a design discipline for **continuing to keep unlike responsibilities separate**.
 
+For guidance on project size and workload characteristics, see [Projects that benefit from UPD](suitable-projects.md).
+
 Next: [Practical examples](examples.md).

@@ -13,6 +13,7 @@ PAIRS = {
     "docs/users/README.md": "docs/users/en/README.md",
     "docs/users/メリット.md": "docs/users/en/benefits.md",
     "docs/users/具体例.md": "docs/users/en/examples.md",
+    "docs/users/向いているプロジェクト.md": "docs/users/en/suitable-projects.md",
     "docs/developers/README.md": "docs/developers/en/README.md",
     "docs/developers/境界.md": "docs/developers/en/boundaries.md",
     "docs/developers/実装.md": "docs/developers/en/implementation.md",

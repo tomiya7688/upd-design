@@ -27,6 +27,7 @@ UPD の3つの層は、それぞれの仕事を越えてはいけません。特
 
 - [UPD の考え方](docs/users/README.md) — 何を分離するのか
 - [UPD を使うメリット](docs/users/メリット.md) — 何が改善し、どこに注意するか
+- [UPD が向いているプロジェクト](docs/users/向いているプロジェクト.md) — 規模別の目安と処理の特徴
 - [具体例で理解する UPD](docs/users/具体例.md) — 検索、保存、ゲームの例
 
 ### [開発者向け](docs/developers/README.md)

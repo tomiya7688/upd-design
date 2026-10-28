@@ -45,4 +45,6 @@ In each case, one layer takes on another layer's responsibility.
 
 Even a single feature, such as Search or Purchase, may include multiple responsibilities. **Separate the work within features, not just the names of features.**
 
+For project-size and workload guidance, see [Projects that benefit from UPD](suitable-projects.md).
+
 For mandatory rules, see [Developer boundary rules](../../developers/en/boundaries.md).

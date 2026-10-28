@@ -27,6 +27,7 @@ This shows the flow of responsibilities, not a mandated class structure or commu
 
 - [Understanding UPD](../docs/users/en/README.md) — What is separated and why
 - [Benefits of UPD](../docs/users/en/benefits.md) — Benefits and trade-offs
+- [Projects that benefit from UPD](../docs/users/en/suitable-projects.md) — Project sizes and workload characteristics
 - [Practical examples](../docs/users/en/examples.md) — Search, saving, and game logic
 
 ### [For developers](../docs/developers/en/README.md)

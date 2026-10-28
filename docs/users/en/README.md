@@ -41,8 +41,13 @@ This does not guarantee that every change is limited to one layer. Changes to ex
 
 See [Benefits of UPD](benefits.md).
 
+## Which projects are a good fit?
+
+UPD can be used at different scales. **The more important question is whether UI, Process, and Data change for different reasons.** Medium-sized business applications are a clear example of where separation can help. See [Projects that benefit from UPD](suitable-projects.md).
+
 ## Read next
 
 - [Benefits of UPD](benefits.md) — Advantages and trade-offs
+- [Projects that benefit from UPD](suitable-projects.md) — Suitability by size and workload
 - [Practical examples](examples.md) — Search, saving an order, and game rules
 - [Mandatory developer boundaries](../../developers/en/boundaries.md) — Detailed rules
