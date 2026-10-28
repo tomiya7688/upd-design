@@ -63,6 +63,18 @@ class DocumentationTests(unittest.TestCase):
                 text = re.sub(r"\[日本語\]\([^)]*\)", "", text)
                 self.assertFalse(JAPANESE.search(text), "English page contains Japanese text")
 
+    def test_japanese_documentation_uses_plain_form(self):
+        """Japanese design prose must not use polite sentence endings."""
+        polite = re.compile(r"です|ます|ください|ません|ましょう")
+        for name in (*PAIRS, ".github/CONTRIBUTING.md"):
+            with self.subTest(page=name):
+                content = (ROOT / name).read_text(encoding="utf-8")
+                self.assertNotRegex(
+                    content,
+                    polite,
+                    f"{name} must use plain declarative or normative Japanese",
+                )
+
     def test_relative_markdown_links_exist(self):
         for name in (*PAIRS, *PAIRS.values()):
             path = ROOT / name

@@ -8,7 +8,7 @@ UPD does not mandate particular classes, internal components, or communication t
 
 ## Rule 1: UI must not decide application rules
 
-UI accepts external requests and returns results, including presentation when a screen exists. The external party may be a person, device, or another system. Final decisions and calculations based on business or game rules belong to Process.
+UI handles input and presentation. Final decisions and calculations based on business or game rules belong to Process.
 
 **Violation:** A purchase-button handler checks a membership tier, calculates a discount, and commits the order.
 

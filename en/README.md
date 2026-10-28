@@ -4,13 +4,11 @@
 
 **UPD is a design approach that separates an application's work into UI, Process, and Data.**
 
-**UPD is intended for projects with an external interface.** The UI may interact with people, devices, or other systems. UPD is not suited to closed autonomous projects without external interaction.
-
 The important part is not the names of directories or classes. It is **keeping different responsibilities separate**.
 
 | Layer | Responsibility |
 | --- | --- |
-| **UI** | Accept external requests and return or present results |
+| **UI** | Accept user input and present results |
 | **Process** | Apply application rules, make decisions, perform calculations, and coordinate work |
 | **Data** | Retrieve and store data |
 

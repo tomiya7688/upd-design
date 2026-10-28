@@ -1,35 +1,76 @@
-# Projects Suited to UPD
+# Projects That Benefit from UPD
 
 [日本語](../向いているプロジェクト.md)
 
-**UPD is intended for projects with an interface to the outside world.**
+UPD separates application responsibilities into **UI (input and presentation), Process (decisions and calculations), and Data (retrieval and persistence)**.
 
-UI is not limited to a screen for human users. It also includes an interface that accepts requests and returns results to people, devices, or other systems. Data handles retrieval and storage.
+**The main consideration is not the number of lines of code or developers, but whether these responsibilities change for different reasons.** The small, medium, and large categories below are qualitative guidelines rather than fixed thresholds.
 
-**UPD is not suited to self-contained projects that operate autonomously without any external interface.**
+## Suitability by project size
 
-## Suitability by size
-
-| Size | Suitability | Example |
+| Size | Suitability | Example and rationale |
 | --- | --- | --- |
-| Small | Depends on the work involved | An expense tracker with input, calculations, and saving can benefit. A display-only app gains little. |
-| Medium | Particularly suitable | Reservation or inventory management with distinct input, decision, and data responsibilities. |
-| Large | Useful, but other design decisions are needed | E-commerce and business systems. UPD separates responsibilities; it does not define feature boundaries or operations. |
+| **Small** | **Useful in some cases** | In a personal expense tracker, UI handles entering and displaying expenses, Process calculates totals, and Data saves records. UPD can help even in a small app when these responsibilities are present. An app that only displays text or images, however, has little to gain from applying UPD. |
+| **Medium** | **Often a particularly good fit** | Inventory, reservation, and order-management systems tend to have several screens, business rules, and data operations. Separating those responsibilities makes their interactions easier to reason about. |
+| **Large** | **Useful, but insufficient on its own** | An e-commerce platform or organization-wide business system can apply UPD within features. It will still need additional decisions about feature boundaries, permissions, concurrency, deployment, and operations. |
 
-Size is only a guideline. First ask **whether the project has an external interface and responsibilities worth separating**.
+**Medium-sized business applications are a particularly clear example of where UPD can help.** This does not exclude smaller projects with substantial rules or larger systems that need responsibility separation.
 
-## Workloads that fit well
+## Workloads that tend to fit UPD
 
-- **Responding to external requests:** Reservation handling or commands received from a device.
-- **Numerous rules and calculations:** Pricing, stock decisions, game outcomes.
-- **Multiple data sources or stores:** Databases, CSV files, external APIs.
-- **Shared rules behind several interfaces:** Customer and administration interfaces.
+### 1. Many application rules, decisions, and calculations
 
-## Poor fits
+Examples include discounts, fees, inventory allocation, reservation eligibility, and game rules.
 
-- **Closed autonomous processes with no external interaction:** There is no UI role to separate.
-- **Display-only pages or simple one-off operations:** Separation may offer little benefit.
+When a pricing rule changes, keeping that calculation in Process makes it easier to verify separately from UI formatting and data persistence.
 
-A communication device can use UPD even when no human operates it. However, **having an external interface does not automatically make UPD the best fit**.
+### 2. The same rules are used from several interfaces
 
-Related: [Benefits of UPD](benefits.md), [Examples](examples.md), and [Boundary rules](../../developers/en/boundaries.md).
+An application may have a customer-facing interface and an administration interface. Their layouts differ, but their eligibility checks or calculations may be shared.
+
+Separating UI from Process makes it easier to reuse those application rules without tying them to one screen.
+
+### 3. Multiple or changing data sources
+
+Applications may read from a database, CSV files, and external APIs, or change their storage methods over time.
+
+Data handles I/O and **normalizes source-specific representations** so Process can work with consistent values. Business defaults and other decisions that assign application meaning remain in Process.
+
+### 4. Success, failure, and testing matter
+
+Saving an order, confirming a reservation, or updating a record requires distinguishing an attempted operation from a completed one.
+
+Data reports the I/O outcome, Process determines the application response, and UI presents it. Separate responsibilities make both focused tests and cross-layer tests easier to design.
+
+## Concrete project examples
+
+| Project | UI | Process | Data |
+| --- | --- | --- | --- |
+| **Personal finance tracker (small–medium)** | Expense entry, summary display | Category totals, budget-limit decisions | Record persistence, CSV format normalization |
+| **Inventory and order management (medium)** | Product search, order entry, inventory view | Purchase eligibility, stock allocation, pricing | Retrieving and saving stock and orders |
+| **Reservation management (medium–large)** | Date/time selection, availability display | Booking conditions, slot eligibility | Reading and writing reservations |
+| **E-commerce platform (large)** | Product pages, cart, payment-result display | Coupon eligibility, price calculation, order decisions | Product, order, and customer data I/O |
+| **Game with saving (any size)** | Player input, game screens and results | Scoring, rules, win/loss calculations | Save-file I/O |
+
+These are **illustrative uses of UPD**, not claims that a project should adopt UPD based on industry or size alone.
+
+## When UPD may have limited value
+
+- **A mostly static website:** There is little application decision-making or persistence to separate.
+- **A one-off conversion script:** The entire operation may be simple enough that separation introduces more work than benefit.
+- **A very simple single-screen prototype:** If behavior is minimal and unlikely to evolve, the immediate benefit may be limited.
+
+Even a seemingly small feature can benefit from UPD when rules, data sources, or change requirements grow.
+
+**Choosing not to adopt UPD is different from adopting it and violating its boundaries.** Once a project adopts UPD, the [mandatory boundary rules](../../developers/en/boundaries.md) apply regardless of scale.
+
+## Questions to ask before adopting UPD
+
+- Are presentation, application rules, and data access likely to change independently?
+- Do business calculations or decisions need tests independent of UI and storage?
+- Will several interfaces reuse the same rules, or will several data sources be involved?
+- Is the expected benefit worth the ongoing work of defining and enforcing boundaries?
+
+**Projects with substantial rules and independently changing presentation and data access are especially good candidates for UPD.**
+
+Related: [Benefits](benefits.md), [Practical examples](examples.md), and [Mandatory boundaries](../../developers/en/boundaries.md).
